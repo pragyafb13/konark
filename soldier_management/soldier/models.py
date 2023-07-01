@@ -42,3 +42,22 @@ class SoldierPersonalData(models.Model):
 
     def __str__(self):
         return self.name
+
+class BtyChamp(models.Model):
+    events = models.CharField(max_length=255)
+    P_bty = models.IntegerField()
+    Q_bty = models.IntegerField()
+    R_bty = models.IntegerField()
+    S_bty = models.IntegerField()
+
+    def __str__(self):
+        return self.events
+class SoldierBtyChamp(models.Model):
+    events = models.CharField(max_length=200)
+    P_bty = models.IntegerField(default=0)
+    Q_bty = models.IntegerField(default=0)
+    R_bty = models.IntegerField(default=0)
+    S_bty = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.events

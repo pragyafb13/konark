@@ -1,5 +1,11 @@
 from django import forms
 from soldier.models import SoldierPersonalData
+from .models import BtyChamp
+
+class BtyChampForm(forms.ModelForm):
+    class Meta:
+        model = BtyChamp
+        fields = ['events', 'P_bty', 'Q_bty', 'R_bty', 'S_bty']
 
 class SoldierPersonalDataForm(forms.ModelForm):
     class Meta:

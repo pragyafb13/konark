@@ -2,8 +2,26 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from soldier.forms import SoldierPersonalDataForm
 from django.contrib.auth import authenticate, login , logout
-from .models import SoldierPersonalData
+from .models import SoldierPersonalData, BtyChamp
 from django.http import HttpResponse
+from .forms import BtyChampForm
+from .models import SoldierBtyChamp
+
+def soldier_btychamp_view(request):
+    soldier_btychamp = SoldierBtyChamp.objects.all()
+    total_scores = [row.P_bty + row.Q_bty + row.R_bty + row.S_bty for row in soldier_btychamp]
+    data = zip(soldier_btychamp, total_scores)
+    return render(request, 'soldier_btychamp.html', {'data': data})
+
+@login_required
+def bty_champ_view(request):
+    bty_champ = BtyChamp.objects.all()
+    form = BtyChampForm()
+    context = {
+        'bty_champ': bty_champ,
+        'form': form
+    }
+    return render(request, 'bty_champ.html', context)
 
 
 @login_required
@@ -19,6 +37,25 @@ def edit_soldier(request, soldier_id):
         form = SoldierPersonalDataForm(instance=soldier)
 
     return render(request, 'edit_soldier.html', {'form': form, 'soldier': soldier})
+
+@login_required
+def save_bty_champ_view(request):
+    if request.method == 'POST':
+        form = BtyChampForm(request.POST)
+        if form.is_valid():
+            bty_champ_id = form.cleaned_data['id']
+            bty_champ = get_object_or_404(BtyChamp, id=bty_champ_id)
+            if request.user.is_authenticated:
+                bty_champ.P_bty = form.cleaned_data['P_bty']
+                bty_champ.Q_bty = form.cleaned_data['Q_bty']
+                bty_champ.R_bty = form.cleaned_data['R_bty']
+                bty_champ.S_bty = form.cleaned_data['S_bty']
+                bty_champ.save()
+                return redirect('bty_champ')
+
+    return redirect('bty_champ')
+
+
 
 def logout_view(request):
     logout(request)

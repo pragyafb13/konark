@@ -1,0 +1,38 @@
+<form method="POST" action="{% url 'save_bty_champ' %}">
+    {% csrf_token %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Events</th>
+                <th>P_bty</th>
+                <th>Q_bty</th>
+                <th>R_bty</th>
+                <th>S_bty</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in bty_champ %}
+            <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.events }}</td>
+                {% if request.user.is_authenticated %}
+                    <td><input type="text" name="P_bty" value="{{ row.P_bty }}"></td>
+                    <td><input type="text" name="Q_bty" value="{{ row.Q_bty }}"></td>
+                    <td><input type="text" name="R_bty" value="{{ row.R_bty }}"></td>
+                    <td><input type="text" name="S_bty" value="{{ row.S_bty }}"></td>
+                {% else %}
+                    <td>{{ row.P_bty }}</td>
+                    <td>{{ row.Q_bty }}</td>
+                    <td>{{ row.R_bty }}</td>
+                    <td>{{ row.S_bty }}</td>
+                {% endif %}
+                <input type="hidden" name="id" value="{{ row.id }}">  <!-- Add the id field -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if request.user.is_authenticated %}
+        <button type="submit">Save</button>
+    {% endif %}
+</form>
