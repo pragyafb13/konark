@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    table {
+      width: 100%;
+      overflow-x: auto;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+  <title>Soldier List</title>
+</head>
+<body>
+  <h1>Soldier List</h1>
+  <div style="overflow-x: auto;">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Date of Enrollment</th>
+          <th>Civil Education</th>
+          <th>Blood Group</th>
+          <th>I Card No</th>
+          <th>Individual Account No</th>
+          <th>Part Order</th>
+          <th>Joint Account No</th>
+          <th>Aadhar Card</th>
+          <th>PAN Card</th>
+          <th>Email ID</th>
+          <th>Mobile No</th>
+          <th>Father</th>
+          <th>Mother</th>
+          <th>Son</th>
+          <th>Daughter</th>
+          <th>Home Address</th>
+          <th>Village/House No</th>
+          <th>Post Office</th>
+          <th>Tehsil</th>
+          <th>Police Station</th>
+          <th>District</th>
+          <th>State</th>
+          <th>Pin Code</th>
+          <th>Promotion Cadre</th>
+          <th>Up-Gradation Cadre</th>
+          <th>Military Education</th>
+          <th>Course</th>
+          <th>Sports</th>
+          <th>ERE</th>
+          <th>Award</th>
+          <th>MED</th>
+          <th>RED Entry</th>
+          <th>Misc</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for soldier in soldiers %}
+          <tr>
+            <td>{{ soldier.id }}</td>
+            <td>{{ soldier.indl_detail }}</td>
+            <td>{{ soldier.dob }}</td>
+            <td>{{ soldier.doe }}</td>
+            <td>{{ soldier.civ_edn }}</td>
+            <td>{{ soldier.blood_gp }}</td>
+            <td>{{ soldier.i_card_no }}</td>
+            <td>{{ soldier.indl_acct_no }}</td>
+            <td>{{ soldier.part_order }}</td>
+            <td>{{ soldier.jt_acct_no }}</td>
+            <td>{{ soldier.aadhar_card }}</td>
+            <td>{{ soldier.pan_card }}</td>
+            <td>{{ soldier.email_id }}</td>
+            <td>{{ soldier.mobile_no }}</td>
+            <td>{{ soldier.father }}</td>
+            <td>{{ soldier.mother }}</td>
+            <td>{{ soldier.son }}</td>
+            <td>{{ soldier.daughter }}</td>
+            <td>{{ soldier.home_address }}</td>
+            <td>{{ soldier.vill_house_no }}</td>
+            <td>{{ soldier.post_office }}</td>
+            <td>{{ soldier.teh }}</td>
+            <td>{{ soldier.police_stn }}</td>
+            <td>{{ soldier.dist }}</td>
+            <td>{{ soldier.state }}</td>
+            <td>{{ soldier.pin_code }}</td>
+            <td>{{ soldier.promotion_cadre }}</td>
+            <td>{{ soldier.upgradation_cadre }}</td>
+            <td>{{ soldier.mil_edn }}</td>
+            <td>{{ soldier.course }}</td>
+            <td>{{ soldier.sports }}</td>
+            <td>{{ soldier.ere }}</td>
+            <td>{{ soldier.award }}</td>
+            <td>{{ soldier.med }}</td>
+            <td>{{ soldier.red_entry }}</td>
+            <td>{{ soldier.misc }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="37">No soldiers found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
