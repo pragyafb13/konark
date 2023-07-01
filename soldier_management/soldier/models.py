@@ -14,7 +14,6 @@ class SoldierPersonalData(models.Model):
     pan_card = models.CharField(max_length=255, null=True)
     email_id = models.CharField(max_length=255, null=True)
     mobile_no = models.CharField(max_length=20, null=True)
-    family_detail = models.CharField(max_length=255, null=True)
     father = models.CharField(max_length=255, null=True)
     mother = models.CharField(max_length=255, null=True)
     son = models.CharField(max_length=255, null=True)

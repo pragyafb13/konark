@@ -1,13 +1,41 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from soldier.forms import SoldierPersonalDataForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from .models import SoldierPersonalData
 from django.http import HttpResponse
 
 
 @login_required
-def save_soldier_details(request):
+def edit_soldier(request, soldier_id):
+    soldier = get_object_or_404(SoldierPersonalData, id=soldier_id)
+
+    if request.method == 'POST':
+        form = SoldierPersonalDataForm(request.POST, instance=soldier)
+        if form.is_valid():
+            form.save()
+            return redirect('soldier_list')
+    else:
+        form = SoldierPersonalDataForm(instance=soldier)
+
+    return render(request, 'edit_soldier.html', {'form': form, 'soldier': soldier})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+@login_required
+def delete_soldier(request, soldier_id):
+    soldier = get_object_or_404(SoldierPersonalData, id=soldier_id)
+
+    if request.method == 'POST':
+        soldier.delete()
+        return redirect('soldier_list')
+
+    return render(request, 'delete_soldier.html', {'soldier': soldier})
+
+@login_required
+def add_soldier(request):
     if request.method == 'POST':
         form = SoldierPersonalDataForm(request.POST)
         if form.is_valid():
@@ -15,7 +43,8 @@ def save_soldier_details(request):
             return redirect('soldier_list')
     else:
         form = SoldierPersonalDataForm()
-    return render(request, 'soldier_detail.html', {'form': form})
+
+    return render(request, 'add_soldier.html', {'form': form})
 
 
 @login_required
@@ -24,15 +53,16 @@ def user_page(request):
     return render(request, 'user_page.html', {'personal_data': personal_data})
 
 
-@login_required
 def soldier_list(request):
     personal_data = SoldierPersonalData.objects.all()
+    print('pragya', personal_data)
     return render(request, 'soldier_list.html', {'personal_data': personal_data})
 
 
 @login_required
 def soldier_detail(request):
     if request.method == 'POST':
+        print('pragya@@', request)
         form = SoldierPersonalDataForm(request.POST)
         print("Form is valid:", form.is_valid())  # Print form validity
         if form.is_valid():
@@ -45,10 +75,8 @@ def soldier_detail(request):
 
     return render(request, 'soldier_detail.html', {'form': form})
 
-
-
-@login_required
 def view_list(request):
+    print('pragyaraj', request)
     return render(request, 'soldier_list.html')
 
 

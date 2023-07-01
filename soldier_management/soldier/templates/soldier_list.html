@@ -17,6 +17,12 @@
 </head>
 <body>
   <h1>Soldier List</h1>
+  {% if user.is_authenticated %}
+  <p><a href="{% url 'add_soldier' %}">Add New Soldier</a></p>
+{% endif %}
+{% if user.is_authenticated %}
+  <p><a href="{% url 'logout' %}">Logout</a></p>
+{% endif %}
   <div style="overflow-x: auto;">
     <table>
       <thead>
@@ -57,13 +63,16 @@
           <th>MED</th>
           <th>RED Entry</th>
           <th>Misc</th>
+          {% if user.is_authenticated %}
+            <th>Actions</th> <!-- Add an Actions column for editing and deleting -->
+          {% endif %}
         </tr>
       </thead>
       <tbody>
-        {% for soldier in soldiers %}
+        {% for soldier in personal_data %}
           <tr>
             <td>{{ soldier.id }}</td>
-            <td>{{ soldier.indl_detail }}</td>
+            <td>{{ soldier.name }}</td>
             <td>{{ soldier.dob }}</td>
             <td>{{ soldier.doe }}</td>
             <td>{{ soldier.civ_edn }}</td>
@@ -98,6 +107,13 @@
             <td>{{ soldier.med }}</td>
             <td>{{ soldier.red_entry }}</td>
             <td>{{ soldier.misc }}</td>
+            {% if user.is_authenticated %}
+              <td>
+                <a href="{% url 'edit_soldier' soldier.id %}">Edit</a>
+                <a href="{% url 'delete_soldier' soldier.id %}">Delete</a>
+              </td> <!-- Add Edit and Delete links for each soldier record -->
+            {% endif %}
+    </td>
           </tr>
         {% empty %}
           <tr>
@@ -107,5 +123,14 @@
       </tbody>
     </table>
   </div>
+  <style>
+  table {
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 5px solid black;
+    padding: 8px;
+  }
+</style>
 </body>
 </html>
