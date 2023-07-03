@@ -1,38 +1,58 @@
 {% load static %}
 
-<table>
-  <style>
-    table {
-      width: 100%;
-      overflow-x: auto;
-    }
-    th, td {
-      padding: 8px;
-      text-align: left;
-    }
-  </style>
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>events</th>
-            <th>P_bty</th>
-            <th>Q_bty</th>
-            <th>R_bty</th>
-            <th>S_bty</th>
-            <th>Total Score</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for row, score in data %}
-        <tr>
-            <td>{{ row.id }}</td>
-            <td>{{ row.events }}</td>
-            <td>{{ row.P_bty }}</td>
-            <td>{{ row.Q_bty }}</td>
-            <td>{{ row.R_bty }}</td>
-            <td>{{ row.S_bty }}</td>
-            <td>{{ score }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<body>
+  {% if request.user.is_authenticated %}
+  <button><a href="{% url 'update_scores' %}" type="button" name="update_scores">Update Scores</button>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+  {% endif %}
+
+    <table>
+        <style>
+            table {
+                width: 100%;
+                overflow-x: auto;
+            }
+            th,
+            td {
+                padding: 8px;
+                text-align: left;
+            }
+        </style>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>events</th>
+                <th>P_bty</th>
+                <th>Q_bty</th>
+                <th>R_bty</th>
+                <th>S_bty</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row, score in data %}
+            <tr>
+                <td>{{ row.id }}</td>
+                <td>{{ row.events }}</td>
+                <td>{{ row.P_bty }}</td>
+                <td>{{ row.Q_bty }}</td>
+                <td>{{ row.R_bty }}</td>
+                <td>{{ row.S_bty }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No data available</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="2">Total Score</td>
+                <td>{{ total_scores.total_P_bty }}</td>
+                <td>{{ total_scores.total_Q_bty }}</td>
+                <td>{{ total_scores.total_R_bty }}</td>
+                <td>{{ total_scores.total_S_bty }}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</body>

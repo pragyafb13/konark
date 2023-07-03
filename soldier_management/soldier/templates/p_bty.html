@@ -1,0 +1,60 @@
+{% load static %}
+
+{% block content %}
+  <h1>P Bty Page</h1>
+
+  {% if request.user.is_superuser %}
+    <form method="post" action="{% url 'update_scores' %}">
+      {% csrf_token %}
+      <label for="event">Event:</label>
+      <select name="event" id="event">
+        {% for event in events %}
+          <option value="{{ event }}">{{ event }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <label for="p_bty">P Bty Score:</label>
+      <input type="number" name="p_bty" id="p_bty">
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  {% endif %}
+
+  <table>
+    <style>
+      table {
+        width: 100%;
+        overflow-x: auto;
+      }
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+    </style>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>events</th>
+        <th>P_bty</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in soldier_btychamp %}
+      <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.events }}</td>
+        <td>{{ row.P_bty }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3">No data available</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="2">Total Score</td>
+        <td>{{ total_scores.total_P_bty }}</td>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}

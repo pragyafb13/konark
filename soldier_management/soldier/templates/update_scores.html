@@ -1,0 +1,53 @@
+{% block content %}
+  <h1>Update Scores</h1>
+
+  {% if request.user.is_superuser %}
+    <form method="post" action="{% url 'update_scores' %}">
+      {% csrf_token %}
+      <label for="event">Event:</label>
+      <select name="event" id="event">
+        {% for event in events %}
+          <option value="{{ event }}">{{ event }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <label for="p_bty">P Bty Score:</label>
+      <input type="number" name="p_bty" id="p_bty">
+      <br>
+      <label for="q_bty">Q Bty Score:</label>
+      <input type="number" name="q_bty" id="q_bty">
+      <br>
+      <label for="r_bty">R Bty Score:</label>
+      <input type="number" name="r_bty" id="r_bty">
+      <br>
+      <label for="s_bty">S Bty Score:</label>
+      <input type="number" name="s_bty" id="s_bty">
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+  {% elif request.user.username == 'p_bty_user' %}
+    <form method="post" action="{% url 'update_scores' %}">
+      {% csrf_token %}
+      <label for="p_bty_score">P Bty Score:</label>
+      <input type="number" name="p_bty_score" id="p_bty_score" value="{{ total_scores.total_P_bty }}">
+      <br>
+      <button type="submit">Update Score</button>
+    </form>
+  {% elif request.user.username == 'q_bty_user' %}
+    <form method="post" action="{% url 'update_scores' %}">
+      {% csrf_token %}
+      <label for="q_bty_score">Q Bty Score:</label>
+      <input type="number" name="q_bty_score" id="q_bty_score" value="{{ total_scores.total_Q_bty }}">
+      <br>
+      <button type="submit">Update Score</button>
+    </form>
+  {% elif request.user.username == 'r_bty_user' %}
+    <form method="post" action="{% url 'update_scores' %}">
+      {% csrf_token %}
+      <label for="r_bty_score">R Bty Score:</label>
+      <input type="number" name="r_bty_score" id="r_bty_score" value="{{ total_scores.total_R_bty }}">
+      <br>
+      <button type="submit">Update Score</button>
+    </form>
+  {% endif %}
+{% endblock %}

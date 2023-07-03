@@ -3,6 +3,7 @@
 <head>
     <title>User Page</title>
 </head>
+
 <center><body>
     <h1>Welcome to User Page</h1>
 
@@ -13,7 +14,12 @@
     <a href="{% url 'soldier_detail' %}">
         <button>Add Records</button>
     </a>
-    <a href="{% url 'bty_champ' %}" class="btn btn-primary">Bty Championship</a>
+    <a href="{% url 'soldier_btychamp' %}">
+        <button>Bty Championship</button>
+    </a>
+    {% if user.is_authenticated %}
+      <p><a href="{% url 'logout' %}">Logout</a></p>
+    {% endif %}
 
 </body>
 </html>

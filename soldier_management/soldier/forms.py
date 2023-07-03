@@ -5,7 +5,14 @@ from .models import BtyChamp
 class BtyChampForm(forms.ModelForm):
     class Meta:
         model = BtyChamp
-        fields = ['events', 'P_bty', 'Q_bty', 'R_bty', 'S_bty']
+        fields = ['P_bty', 'Q_bty', 'R_bty', 'S_bty']
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    self.fields['P_bty'].required = False
+    self.fields['Q_bty'].required = False
+    self.fields['R_bty'].required = False
+    self.fields['S_bty'].required = False
+
 
 class SoldierPersonalDataForm(forms.ModelForm):
     class Meta:

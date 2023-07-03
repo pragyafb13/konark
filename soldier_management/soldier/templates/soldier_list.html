@@ -108,10 +108,11 @@
             <td>{{ soldier.red_entry }}</td>
             <td>{{ soldier.misc }}</td>
             {% if user.is_authenticated %}
-              <td>
-                <a href="{% url 'edit_soldier' soldier.id %}">Edit</a>
-                <a href="{% url 'delete_soldier' soldier.id %}">Delete</a>
-              </td> <!-- Add Edit and Delete links for each soldier record -->
+            <td>
+              <a href="{% url 'edit_soldier' soldier.id %}" class="btn btn-primary">Edit Soldier</a>
+              <a href="{% url 'delete_soldier' soldier.id %}">Delete</a>
+          </td>
+
             {% endif %}
     </td>
           </tr>

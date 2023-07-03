@@ -1,11 +1,10 @@
-{% extends 'soldier_list.html' %}
+{% extends 'add_soldier.html' %}
 
 {% block content %}
-  <h2>Edit Soldier</h2>
-  <center>
-  <form method="POST">
+  <h1>Edit Soldier</h1>
+  <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <button type="submit">Save Changes</button>
   </form>
 {% endblock %}
