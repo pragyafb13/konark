@@ -72,11 +72,13 @@ def p_bty_view(request):
     # Implement the logic for the P bty page
     return render(request, 'p_bty.html')
 
+
 @login_required
 @user_passes_test(lambda u: u.is_superuser and u.username == 'q_bty_user')
-def q_bty_view(request):
+def p_bty_view(request):
     # Implement the logic for the Q bty page
     return render(request, 'q_bty.html')
+
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser and u.username == 'r_bty_user')
